@@ -1,7 +1,7 @@
 {
   "name": "in-store2-backend",
   "version": "1.0.0",
-  "description": "Backend for advanced in-store navigation system",
+  "description": "Backend server for in-store navigation system",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
