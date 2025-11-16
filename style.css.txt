@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f0f0;
+}
+
+header {
+    background-color: #004aad;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls select, .controls button {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 14px;
+}
+
+main {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+#map-container {
+    display: grid;
+    grid-template-columns: repeat(8, 80px);
+    grid-template-rows: repeat(8, 80px);
+    gap: 10px;
+    background: #e0e0e0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.shop, .feature, .office, .washroom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+.shop { background-color: #4caf50; }
+.feature { background-color: #ff9800; }
+.office { background-color: #2196f3; }
+.washroom { background-color: #9c27b0; }
+
+#shop-details {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 250px;
+}
+
+#details-content p {
+    margin: 5px 0;
+}
+
+#selected-shops {
+    list-style: none;
+    padding-left: 0;
+}
+
+#selected-shops li {
+    margin: 5px 0;
+}
