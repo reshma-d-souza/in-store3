@@ -1,12 +1,15 @@
-{
-  "name": "in-store2-backend",
-  "version": "1.0.0",
-  "description": "Backend for advanced in-store navigation system",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2"
-  }
-}
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.use(express.static('../'));
+
+app.get('/api/shops', (req,res)=>{
+    res.json({
+        message:"API for shops will be implemented here"
+    });
+});
+
+app.listen(port, ()=>{
+    console.log(`Server running at http://localhost:${port}`);
+});
