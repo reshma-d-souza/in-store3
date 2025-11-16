@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Store Navigation System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 id="title">In-Store Navigation</h1>
+        <div class="controls">
+            <select id="language">
+                <option value="en">English</option>
+                <option value="kn">Kannada</option>
+                <option value="hi">Hindi</option>
+            </select>
+            <select id="floor-selector">
+                <option value="1">Floor 1</option>
+                <option value="2">Floor 2</option>
+                <option value="3">Floor 3</option>
+                <option value="4">Floor 4</option>
+                <option value="5">Floor 5</option>
+            </select>
+            <button id="shopkeeper-toggle">Shopkeeper Mode</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="map-container"></section>
+        <section id="shop-details">
+            <h2>Shop Details</h2>
+            <div id="details-content">Select a shop to see details.</div>
+            <h3>Selected Shops:</h3>
+            <ul id="selected-shops"></ul>
+            <button id="calculate-path">Calculate Shortest Path</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
