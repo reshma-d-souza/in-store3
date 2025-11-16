@@ -1,0 +1,123 @@
+const floors = {};
+const selectedShops = [];
+let currentFloor = 1;
+let shopkeeperMode = false;
+let language = 'en';
+let currentLocation = {floor: 1, x: 0, y: 0};
+
+// Sample data for 5 floors
+for(let f=1; f<=5; f++){
+    floors[f] = {
+        shops: [
+            {id:1, name:{en:"Fashion Hub",kn:"ಫ್ಯಾಷನ್ ಹಬ್",hi:"फैशन हब"}, category:"Clothing", x:1, y:1},
+            {id:2, name:{en:"Tech World",kn:"ಟೆಕ್ ವರ್ಲ್ಡ್",hi:"टेक वर्ल्ड"}, category:"Electronics", x:3, y:1},
+            {id:3, name:{en:"Book Corner",kn:"ಪುಸ್ತಕ ಕೋಣೆ",hi:"बुक कॉर्नर"}, category:"Books", x:5, y:2},
+        ],
+        features: [
+            {type:"Escalator", x:2, y:2},
+            {type:"Stairs", x:4, y:4},
+            {type:"Lift", x:6, y:6},
+            {type:"Office", x:7, y:1},
+            {type:"Men Washroom", x:1, y:6},
+            {type:"Women Washroom", x:6, y:2}
+        ]
+    }
+}
+
+const mapContainer = document.getElementById('map-container');
+const detailsContent = document.getElementById('details-content');
+const selectedList = document.getElementById('selected-shops');
+const floorSelector = document.getElementById('floor-selector');
+const shopkeeperToggle = document.getElementById('shopkeeper-toggle');
+const langSelector = document.getElementById('language');
+const calcPathBtn = document.getElementById('calculate-path');
+
+function renderMap(){
+    mapContainer.innerHTML = '';
+    const floor = floors[currentFloor];
+
+    // Create 8x8 grid
+    for(let y=0;y<8;y++){
+        for(let x=0;x<8;x++){
+            const cell = document.createElement('div');
+            cell.style.width = '80px';
+            cell.style.height = '80px';
+            cell.style.display = 'flex';
+            cell.style.justifyContent = 'center';
+            cell.style.alignItems = 'center';
+
+            // Check for shop
+            const shop = floor.shops.find(s => s.x===x && s.y===y);
+            if(shop){
+                cell.className = 'shop';
+                cell.textContent = shop.name[language];
+                cell.addEventListener('click',()=>selectShop(shop));
+            }
+
+            // Check for feature
+            const feature = floor.features.find(f=>f.x===x && f.y===y);
+            if(feature){
+                cell.className = 'feature';
+                cell.textContent = feature.type;
+            }
+
+            mapContainer.appendChild(cell);
+        }
+    }
+}
+
+function selectShop(shop){
+    if(shopkeeperMode){
+        const newName = prompt("Edit shop name", shop.name[language]);
+        if(newName) shop.name[language] = newName;
+        renderMap();
+        return;
+    }
+
+    if(!selectedShops.includes(shop)){
+        selectedShops.push(shop);
+        updateSelectedList();
+    }
+    showDetails(shop);
+}
+
+function showDetails(shop){
+    detailsContent.innerHTML = `
+        <p><strong>${shop.name[language]}</strong></p>
+        <p>Category: ${shop.category}</p>
+        <p>Floor: ${currentFloor}</p>
+        <p>Open: 10:00 AM</p>
+        <p>Close: 9:00 PM</p>
+    `;
+}
+
+function updateSelectedList(){
+    selectedList.innerHTML = '';
+    selectedShops.forEach(s=>{
+        const li = document.createElement('li');
+        li.textContent = s.name[language];
+        selectedList.appendChild(li);
+    });
+}
+
+floorSelector.addEventListener('change',(e)=>{
+    currentFloor = parseInt(e.target.value);
+    renderMap();
+});
+
+shopkeeperToggle.addEventListener('click',()=>{
+    shopkeeperMode = !shopkeeperMode;
+    shopkeeperToggle.textContent = shopkeeperMode ? "Exit Shopkeeper Mode":"Shopkeeper Mode";
+});
+
+langSelector.addEventListener('change',(e)=>{
+    language = e.target.value;
+    renderMap();
+    updateSelectedList();
+});
+
+calcPathBtn.addEventListener('click',()=>{
+    alert("Shortest path feature coming soon! 🚶‍♂️");
+});
+
+renderMap();
